@@ -38,7 +38,21 @@ module "gsuite_records" {
   source              = "operatehappy/route53-gsuite-records/aws"
   version             = "0.9.0"
   zone_id             = "Z3P5QSUBK4POTI"
-  // TODO
+
+  mx_verification_record_prefix = "2vw...juq"
+
+  dkim_record_value = "v=DKIM1; k=rsa; p=MIG...QAB"
+
+  custom_gmail_subdomain    = "mail"
+  custom_calendar_subdomain = "calendar"
+  custom_docs_subdomain     = "docs"
+  custom_drive_subdomain    = "drive"
+  custom_sites_subdomain    = "sites"
+  custom_groups_subdomain   = "groups"
+
+  dmarc_report_recipient = "hostmaster@example.com"
+
+  apex_verification_txt = "google-site-verification=EXAMPLE"
 }
 ```
 
@@ -174,13 +188,13 @@ Using Domain-based Message Authentication, Reporting, and Conformance (DMARC) he
 Described in _Help Center_ article [Turn on DMARC](https://support.google.com/a/answer/2466563), the required steps to enable this feature are:
 
 1. Craft a DMARC policy, consisting of the following items:
-   * Version of DMARC Protocol, configured through the `dmarc_protocol_version` variable
-   * Type of DMARC Policy, configured through the `dmarc_policy_type` variable
-   * Percentage of suspicious messages the Policy should apply to, configured through the `dmarc_policy_percentage` variable
-   * Recipient of DMARC Reports, configured through the `dmarc_report_recipient` variable
-   * Type of DMARC Policy for Subdomains, configured through the `dmarc_subdomain_policy_type` variable
-   * Alignment mode for DKIM Signatures, configured through the `dmarc_dkim_alignment_mode` variable
-   * Alignment mode for SPF Records, configured through the `dmarc_spf_alignment_mode` variable
+   - Version of DMARC Protocol, configured through the `dmarc_protocol_version` variable
+   - Type of DMARC Policy, configured through the `dmarc_policy_type` variable
+   - Percentage of suspicious messages the Policy should apply to, configured through the `dmarc_policy_percentage` variable
+   - Recipient of DMARC Reports, configured through the `dmarc_report_recipient` variable
+   - Type of DMARC Policy for Subdomains, configured through the `dmarc_subdomain_policy_type` variable
+   - Alignment mode for DKIM Signatures, configured through the `dmarc_dkim_alignment_mode` variable
+   - Alignment mode for SPF Records, configured through the `dmarc_spf_alignment_mode` variable
 
 Except for the `dmarc_report_recipient` variable, all of these settings have sane defaults. Their default values can be found in the [Inputs](#inputs) section.
 
@@ -199,15 +213,16 @@ The module-generated DMARC Policy is also available as an output under the `dmar
 Described in _Help Center_ article [Customize a G Suite service URL](https://support.google.com/a/answer/53340), the required steps for creating one (or all) redirects are:
 
 1. Open the [Google Admin](https://admin.google.com/AdminHome) interface
-2. Click on the [Company profile](https://admin.google.com/AdminHome#CompanyProfile:] icon
+2. Click on the [Company profile](https://admin.google.com/AdminHome#CompanyProfile:) icon
 3. Click on the _Show more_ menu item to display additional options
 4. Click on the [Custom URLs](https://admin.google.com/AdminHome#CompanyProfile:flyout=customUrl) menu item
-5. Enter custom URLs for any (or all) of the following services
-  * Gmail
-  * Calendar
-  * Drive
-  * Sites
-  * Groups for Business
+5. Enter custom URLs for any (or all) of the following services:
+
+- Gmail
+- Calendar
+- Drive
+- Sites
+- Groups for Business
 
 Then, using those same values, set the following variables in this module's configuration:
 
