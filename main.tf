@@ -7,7 +7,7 @@ resource "aws_route53_record" "gmail" {
 }
 
 resource "aws_route53_record" "dkim" {
-  count = var.dkim_record_value != null ? 1 : 0
+  count   = var.dkim_record_value != null ? 1 : 0
   zone_id = var.zone_id
   name    = "${var.dkim_record_key}._domainkey.${local.zone_name}"
   type    = "TXT"
@@ -88,7 +88,7 @@ resource "aws_route53_record" "apex-txt-record" {
 }
 
 resource "aws_route53_record" "naked-domain-redirect" {
-  count = var.redirect_naked_domain ? 1 : 0
+  count   = var.redirect_naked_domain ? 1 : 0
   zone_id = var.zone_id
   name    = local.zone_name
   type    = "A"

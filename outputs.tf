@@ -9,6 +9,6 @@ output "apex_txt_record" {
 }
 
 output "gsuite-toolbox-check-mx-url" {
-  value = "https://toolbox.googleapps.com/apps/checkmx/check?domain=${trimsuffix(local.zone_name, ".")}&dkim_selector=${var.dkim_record_key}"
+  value       = "https://toolbox.googleapps.com/apps/checkmx/check?domain=${trimsuffix(local.zone_name, ".")}&dkim_selector=${var.dkim_record_key}"
   description = "Direct Link to G Suite Toolbox Check MX tool"
 }
