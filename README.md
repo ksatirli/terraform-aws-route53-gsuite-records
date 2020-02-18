@@ -152,7 +152,7 @@ If you chose to change the _Prefix selector (step 9), add it to the module's con
 
 ```hcl
 module "gsuite-records" {
-  
+
   // module configuration as listed above
 
   dkim_record_value = "v=DKIM1; k=rsa; p=MIG...QAB"
