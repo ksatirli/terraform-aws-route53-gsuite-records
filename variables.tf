@@ -175,7 +175,7 @@ variable "redirect_naked_domain" {
 }
 
 variable "apex_domain_redirect_records" {
-  type        = list
+  type        = list(any)
   description = ""
   default = [
     "216.239.32.21",
@@ -186,11 +186,11 @@ variable "apex_domain_redirect_records" {
 }
 
 locals {
-  zone_name              = data.aws_route53_zone.zone.name
+  zone_name                = data.aws_route53_zone.zone.name
   non_verification_records = var.use_dnssec_signed_records ? var.dnssec_mx_records : var.mx_records
-  verification_record    = var.mx_verification_record_prefix != null ? format("%g %s%s", var.mx_verification_record_priority, var.mx_verification_record_prefix, var.mx_verification_record_suffix) : null
-  gmail_records          = local.verification_record != null ? concat(non_verification_records, [local.verification_record]) : non_verification_records
-  dmarc_report_recipient = var.dmarc_report_recipient != null ? var.dmarc_report_recipient : format("hostmaster@%s", local.zone_name)
-  dmarc_policy           = "v=${var.dmarc_protocol_version}; p=${var.dmarc_policy_type}; pct=${var.dmarc_policy_percentage}; rua=mailto:${local.dmarc_report_recipient}; sp=${var.dmarc_subdomain_policy_type} adkim=${var.dmarc_dkim_alignment_mode}; aspf=${var.dmarc_spf_alignment_mode}"
-  apex_txt_record        = var.apex_verification_txt != null ? [var.apex_spf_txt, var.apex_verification_txt] : [var.apex_spf_txt]
+  verification_record      = var.mx_verification_record_prefix != null ? format("%g %s%s", var.mx_verification_record_priority, var.mx_verification_record_prefix, var.mx_verification_record_suffix) : null
+  gmail_records            = local.verification_record != null ? concat(non_verification_records, [local.verification_record]) : non_verification_records
+  dmarc_report_recipient   = var.dmarc_report_recipient != null ? var.dmarc_report_recipient : format("hostmaster@%s", local.zone_name)
+  dmarc_policy             = "v=${var.dmarc_protocol_version}; p=${var.dmarc_policy_type}; pct=${var.dmarc_policy_percentage}; rua=mailto:${local.dmarc_report_recipient}; sp=${var.dmarc_subdomain_policy_type} adkim=${var.dmarc_dkim_alignment_mode}; aspf=${var.dmarc_spf_alignment_mode}"
+  apex_txt_record          = var.apex_verification_txt != null ? [var.apex_spf_txt, var.apex_verification_txt] : [var.apex_spf_txt]
 }
