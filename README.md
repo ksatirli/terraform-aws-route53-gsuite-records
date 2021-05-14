@@ -71,7 +71,7 @@ Then, fetch the module from the [Terraform Registry](https://registry.terraform.
 | custom_sites_subdomain | Subdomain for custom Sites URL | `string` | n/a |
 | dkim_record_value | DKIM Identifier Value | `string` | n/a |
 | dmarc_report_recipient | Recipient of DMARC Reports | `string` | n/a |
-| mx_verification_record_prefix | MX Verification Record Prefix (without `.mx-verification.google.com`) | `string` | n/a |
+| mx_verification_record_prefix | MX Verification Record Prefix (without `.mx-verification.google.com`) | `string` | null |
 | zone_id | ID of the DNS Zone to store Records in | `string` | n/a |
 | apex_domain_redirect_records | n/a | `list` | <pre>[<br>  "216.239.32.21",<br>  "216.239.34.21",<br>  "216.239.36.21",<br>  "216.239.38.21"<br>]</pre> |
 | apex_spf_txt | SPF Record for Gmail | `string` | `"v=spf1 include:_spf.google.com ~all"` |
