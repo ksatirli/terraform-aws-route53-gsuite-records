@@ -189,6 +189,6 @@ locals {
   verification_record    = format("%g %s%s", var.mx_verification_record_priority, var.mx_verification_record_prefix, var.mx_verification_record_suffix)
   gmail_records          = var.use_dnssec_signed_records ? concat(var.dnssec_mx_records, [local.verification_record]) : concat(var.mx_records, [local.verification_record])
   dmarc_report_recipient = var.dmarc_report_recipient != null ? var.dmarc_report_recipient : format("hostmaster@%s", local.zone_name)
-  dmarc_policy           = "v=${var.dmarc_protocol_version}; p=${var.dmarc_policy_type}; pct=${var.dmarc_policy_percentage}; rua=mailto:${local.dmarc_report_recipient}; sp=${var.dmarc_subdomain_policy_type} adkim=${var.dmarc_dkim_alignment_mode}; aspf=${var.dmarc_spf_alignment_mode}"
+  dmarc_policy           = "v=${var.dmarc_protocol_version}; p=${var.dmarc_policy_type}; pct=${var.dmarc_policy_percentage}; rua=mailto:${local.dmarc_report_recipient}; sp=${var.dmarc_subdomain_policy_type}; adkim=${var.dmarc_dkim_alignment_mode}; aspf=${var.dmarc_spf_alignment_mode}"
   apex_txt_record        = var.apex_verification_txt != null ? [var.apex_spf_txt, var.apex_verification_txt] : [var.apex_spf_txt]
 }
